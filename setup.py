@@ -1,5 +1,3 @@
-import sys
-
 from setuptools import setup, find_packages
 
 setup(
@@ -12,4 +10,5 @@ setup(
     license = "BSD",
     packages = ['crop_override', 'crop_override.templatetags'],
     include_package_data = True,
+    python_requires = '>=3.8',
 )
