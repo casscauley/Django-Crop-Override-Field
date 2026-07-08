@@ -26,12 +26,12 @@ class CropOverrideInput (forms.ClearableFileInput):
 
     html = super().render(name, value, attrs, renderer=renderer)
     jcrop = """
-<div id="crop_%(name)s">
-    <a href="javascript: void(0);" onclick="show_cropper('%(name)s', '%(orig)s', %(aspect).2f)">Crop From Original</a>\
-    <span id="display_crop_%(name)s"></span>
-    <input type="hidden" name="crop_%(name)s" id="id_crop_%(name)s" value=""/>
+<div id="crop_{name}">
+    <a href="javascript: void(0);" onclick="show_cropper('{name}', '{orig}', {aspect:.2f})">Crop From Original</a>\
+    <span id="display_crop_{name}"></span>
+    <input type="hidden" name="crop_{name}" id="id_crop_{name}" value=""/>
 </div>
-    """ % {'name': name, 'orig': self.original, 'aspect': aspect}
+    """.format(name=name, orig=self.original, aspect=aspect)
 
     return mark_safe(thumb + html + jcrop)
 
@@ -65,9 +65,9 @@ class OriginalInput (forms.ClearableFileInput):
         thumb = '<img alt="" src="%s"><br>' % im.url
 
     html = super().render(name, value, attrs, renderer=renderer)
-    jcrop = '<input type="hidden" name="orig_%s" id="id_orig_%s" value=""/>' % (name, name)
+    jcrop = '<input type="hidden" name="orig_{}" id="id_orig_{}" value=""/>'.format(name, name)
     if value and hasattr(value, "url"):
-      jcrop = '<input type="hidden" name="orig_%s" id="id_orig_%s" value="%s"/>' % (name, name, value.url)
+      jcrop = '<input type="hidden" name="orig_{}" id="id_orig_{}" value="{}"/>'.format(name, name, value.url)
 
     return mark_safe(thumb + html + jcrop)
 
